@@ -16,7 +16,7 @@ public class ProjetoPetShop {
      ArrayList <Produto> produto= new ArrayList ();
      boolean rodando = true;
      boolean erro;
-     
+     //
      while(rodando){
          
         System.out.println("|1| Cadastrar Cliente");
@@ -215,6 +215,7 @@ public class ProjetoPetShop {
            System.out.println("=============Buscar Clientes=============");
            System.out.println("Digite o nome: ");
            String nome = scan.nextLine();
+           boolean encontrado = false;
            
            //for (int i = 0 ; i <cliente.size(); i++){
            //Cliente cTemp= cliente.get(i);
@@ -222,8 +223,8 @@ public class ProjetoPetShop {
            if(cTemp.getNome().startsWith(nome)){
                System.out.println("Clientes Encontrados");   
                System.out.println("\tCliente: " + cTemp.getNome());
-              
-           }else{
+              encontrado=true;
+           }if(!encontrado){
                System.out.println("Cliente Não Encontrado");   
            }     
                }
@@ -248,14 +249,15 @@ public class ProjetoPetShop {
           System.out.println("=============Buscar Funcionários=============");
            System.out.println("Digite o nome: ");
            String nome = scan.nextLine();
-           
+           boolean encontrado=false;
            //for (int i = 0 ; i <cliente.size(); i++){
            //Cliente cTemp= cliente.get(i);
            for(Funcionario fTemp:funcionario){
            if(fTemp.getNome().startsWith(nome)){
                System.out.println("Funcionário Encontrados");   
                System.out.println("\tFuncionário: " + fTemp.getNome());
-           }else{
+               encontrado = true;
+           }if(!encontrado){
                System.out.println("Funcionário Não Encontrado");   
            }
            
@@ -370,14 +372,15 @@ public class ProjetoPetShop {
            {
                 System.out.println("Digite a descricao: ");
                 String desc = scan.nextLine();
+                boolean encontrado = false;
                 for(Produto pTemp:produto){
                 if(pTemp.getDesc().startsWith(desc)){
                 System.out.println("Produtos Encontrados");   
                 System.out.println("\tDescricao: " + pTemp.getNomeProd());
-                                
+                  encontrado = true;              
 
            }
-           else{
+           if(!encontrado){
                System.out.println("Produto Não Encontrado");   
            }                     
 
@@ -394,15 +397,16 @@ public class ProjetoPetShop {
             {
                 System.out.println("Digite o codigo de barras: ");
                 String codBarras = scan.nextLine();
+                boolean encontrado = false;
                 for(Produto pTemp:produto){
                 if(pTemp.getCodBarras().startsWith(codBarras)){
                 
                 System.out.println("Produtos Encontrados");   
                 System.out.println("\tPRODUTO: " + pTemp.getNomeProd());
-               
+               encontrado = true;
                    
            }
-           else{
+           if(!encontrado){
                System.out.println("Produto Não Encontrado");  
            }
               }               
@@ -416,14 +420,15 @@ public class ProjetoPetShop {
            {
                 System.out.println("Digite o preco: ");
                 double preco = scan.nextDouble();
+                boolean encontrado = false;
                 for(Produto pTemp:produto){
                 if(pTemp.getPreco()==(preco)){
                 
            System.out.println("Produtos Encontrados");   
                 System.out.println("\tPRODUTO: " + pTemp.getNomeProd());
-              
+              encontrado = true;
            }
-           else{
+           if(!encontrado){
                System.out.println("Produto Não Encontrado");   
            }     
                               
@@ -541,41 +546,46 @@ public class ProjetoPetShop {
         } else {
             System.out.println("\nNão há clientes cadastrados!");
         }
+             break;
     }
             
         
         case "IP":{
         
             if (produto.size() > 0) {
-            Produto pctMaisCaro = produto.get(0);
-            Produto pctMaisBarato = produto.get(0);
+            Produto pCaro = produto.get(0);
+            Produto pBarato = produto.get(0);
             double mediaPreco = 0;
-            int numPctAcimaMedia = 0;
+            int numProdAcimaMedia = 0;
 
-            double maiorPreco = pctMaisCaro.getPreco();
-            double menorPreco = pctMaisBarato.getPreco();
+            double maiorPreco = pCaro.getPreco();
+            double menorPreco = pBarato.getPreco();
 
             for (Produto p : produto) {
                 mediaPreco += p.getPreco();
 
                 if (p.getPreco() > maiorPreco) {
                     maiorPreco = p.getPreco();
-                    pctMaisCaro = p;
+                    pCaro = p;
                 } else if (p.getPreco() < menorPreco) {
                     menorPreco = p.getPreco();
-                    pctMaisBarato = p;
+                    pBarato = p;
                 }
             }
             mediaPreco = mediaPreco / produto.size();
 
             for (Produto p : produto) {
                 if (p.getPreco() > mediaPreco) {
-                    numPctAcimaMedia++;
+                    numProdAcimaMedia++;
                 }
             }
 
+            System.out.println("Produto mais caro: ");
+            pCaro.exibir();
+            System.out.println("Produto mais  barato: ");
+            pBarato.exibir();
             System.out.println("Média do preço: " + mediaPreco);
-            System.out.println("Número de pacotes acima da média: " + numPctAcimaMedia);
+            System.out.println("Número de pacotes acima da média: " + numProdAcimaMedia);
         } else {
             System.out.println("\nNão há pacotes cadastrados!");
         }

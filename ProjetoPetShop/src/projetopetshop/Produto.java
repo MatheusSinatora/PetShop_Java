@@ -79,5 +79,11 @@ public class Produto {
         this.desc = desc;
     }
     }
+
+    public void exibir() {
+        System.out.println("Nome: " + this.getNomeProd());
+        System.out.println("Descricao: " + this.getDesc());
+        System.out.println("Preco: " + this.getPreco());
+    }
    
 }
